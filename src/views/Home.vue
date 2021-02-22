@@ -18,6 +18,9 @@
       <button>More Info</button>
       <dialog></dialog>
       <button>Close</button>
+      <ul>
+        <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+      </ul>
     </div>
   </div>
 </template>
@@ -34,6 +37,7 @@ export default {
       newGenre: "",
       newAuthor: "",
       newTitle: "",
+      errors: [],
     };
   },
   created: function() {
@@ -52,10 +56,15 @@ export default {
         author: this.newAuthor,
         title: this.newTitle,
       };
-      axios.post("/api/books", params).then(response => {
-        console.log(response.data);
-        this.books.push(response.data);
-      });
+      axios
+        .post("/api/books", params)
+        .then(response => {
+          console.log(response.data);
+          this.books.push(response.data);
+        })
+        .catch(error => {
+          this.errors = error.response.data.errors;
+        });
     },
   },
 };
