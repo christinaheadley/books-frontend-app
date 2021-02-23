@@ -5,6 +5,9 @@ import axios from "axios";
 import Signup from "../views/Signup.vue";
 import Login from "../views/Login.vue";
 import Logout from "../views/Logout.vue";
+import BooksIndex from "../views/BooksIndex.vue";
+import BooksNew from "../views/BooksNew.vue";
+import BooksShow from "../views/BooksShow.vue";
 
 axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 axios.defaults.baseURL = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "/";
@@ -20,6 +23,9 @@ const routes = [
   { path: "/signup", name: "signup", component: Signup },
   { path: "/login", name: "login", component: Login },
   { path: "/logout", name: "logout", component: Logout },
+  { path: "/books", name: "books-index", component: BooksIndex },
+  { path: "/books/new", name: "books-new", component: BooksNew },
+  { path: "/books/:id", name: "books-show", component: BooksShow },
 ];
 
 const router = new VueRouter({
