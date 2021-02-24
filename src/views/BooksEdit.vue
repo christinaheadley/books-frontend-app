@@ -1,7 +1,7 @@
 <template>
   <div class="books-edit">
-    <h1>Edit Book</h1>
     <form v-on:submit.prevent="updateBook()">
+      <h1>Edit Book</h1>
       <ul>
         <li class="text-danger" v-for="error in errors" v-bind:key="error">
           {{ error }}
@@ -47,17 +47,17 @@ export default {
   },
 
   methods: {
-    updateBook: function(book) {
+    updateBook: function() {
       var params = {
         genre: this.book.genre,
         author: this.book.author,
         title: this.book.title,
       };
       axios
-        .patch(`/api/books/${book.id}`, params)
+        .patch(`/api/books/${this.book.id}`, params)
         .then(response => {
           console.log(response.data);
-          this.$router.push(`books/${this.book.id}`);
+          this.$router.push(`/books/${this.book.id}`);
         })
         .catch(error => {
           this.errors = error.response.data.errors;

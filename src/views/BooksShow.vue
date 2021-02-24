@@ -2,6 +2,8 @@
   <div class="books-show">
     <h1>Book Deets</h1>
     {{ book }}
+    <br />
+    <button v-on:click="destroyBook()">Delete</button>
     <!-- <div v-for="book in books" v-bind:key="book.id">
       <h2>Title:{{ book.title }}</h2>
       <h3>Author:{{ book.author }}</h3>
@@ -34,6 +36,12 @@ export default {
       axios.get(`/api/books/${this.$route.params.id}`).then(response => {
         console.log(response.data);
         this.book = response.data;
+      });
+    },
+    destroyBook: function() {
+      axios.delete(`api/books/${this.book.id}`).then(response => {
+        console.log(response.data);
+        this.$router.push("/books");
       });
     },
   },
